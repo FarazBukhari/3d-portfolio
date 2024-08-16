@@ -63,12 +63,12 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
             if (!isRotating) setIsRotating(true);
 
             islandRef.current.rotation.y += 0.01 * Math.PI;
-            // rotationSpeed.current = 0.007;
+            rotationSpeed.current = 0.0125;
         } else if (event.key === 'ArrowRight') {
             if (!isRotating) setIsRotating(true);
 
             islandRef.current.rotation.y -= 0.01 * Math.PI;
-            // rotationSpeed.current = -0.007;
+            rotationSpeed.current = -0.0125;
         }
     };
 
@@ -134,15 +134,15 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
         canvas.addEventListener('pointerdown', handlePointerDown);
         canvas.addEventListener('pointerup', handlePointerUp);
         canvas.addEventListener('pointermove', handlePointerMove);
-        document.addEventListener('keyDown', handleKeyDown);
-        document.addEventListener('keyUp', handleKeyUp);
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keyup', handleKeyUp);
 
         return () => {
             canvas.removeEventListener('pointerdown', handlePointerDown);
             canvas.removeEventListener('pointerup', handlePointerUp);
             canvas.removeEventListener('pointermove', handlePointerMove);
-            document.removeEventListener('keyDown', handleKeyDown);
-            document.removeEventListener('keyUp', handleKeyUp);
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', handleKeyUp);
         };
     }, [gl, handlePointerDown, handlePointerUp, handlePointerMove]);
 
