@@ -14,9 +14,9 @@ const animations = {
 };
 
 const Contact = () => {
+    const formRef = useRef(null);
     const [form, setForm] = useState(initialValues);
     const [isLoading, setIsLoading] = useState(false);
-    const formRef = useRef(null);
     const [currentAnimation, setCurrentAnimation] = useState(animations.IDLE);
 
     const { alert, showAlert, hideAlert } = useAlert();
@@ -52,25 +52,24 @@ const Contact = () => {
                 import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
             )
             .then(() => {
+                setIsLoading(false);
                 showAlert({ show: true, text: 'Message sent successfully!', type: 'success' });
 
                 setTimeout(() => {
-                    setIsLoading(false);
-                    setForm(initialValues);
                     setCurrentAnimation(animations.IDLE);
+                    setForm(initialValues);
                 }, 3000);
             })
             .catch((error) => {
                 console.error(error);
                 setIsLoading(false);
-                showAlert({ show: true, text: "I didn't recieve your message", type: 'danger' });
                 setCurrentAnimation(animations.IDLE);
+                showAlert({ show: true, text: "I didn't recieve your message", type: 'danger' });
             });
     };
     return (
         <section className="relative flex lg:flex-row flex-col max-container">
             {alert.show && <Alert {...alert} />}
-            <Alert {...alert} />
             <div className="flex-1 min-w-[50%] flex flex-col">
                 <h1 className="head-text">Get in touch</h1>
                 <form className="w-full flex flex-col gap-7 mt-14" onSubmit={handleSubmit}>
